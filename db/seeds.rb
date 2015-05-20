@@ -1,0 +1,1 @@
+Product.create!(price: 23.99) if Product.current.nil?

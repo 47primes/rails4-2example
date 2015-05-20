@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Elixir Health Drink">
+    <meta name="author" content="Mike Bradford">
+
+    <title>Get Turbo Sport 7!</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
+    <!-- Custom Fonts -->
+    <link href="/assets/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+          <a class="navbar-brand" href="#page-top">Turbo Sport 7</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="sales-feed">
+          <div class="nav navbar-nav navbar-right">
+            <span id="shipping-stats"><%= @order_total_message %></span>
+
+            <div class="carousel slide" data-ride="carousel" data-wrap="false" id="order-feed">
+              <div class="carousel-inner" role="listbox">
+                <div class="item active"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+      <section id="video-sec"  class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=Ycv5fNd4AeM',containment:'self',autoPlay:true, mute:true, startAt:0, opacity:1,mute: true,showControls:false}">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="intro-text">
+              <span class="name">Get Turbo Sport 7</span>
+            </div>
+            <p>The world's best sports drink.</p>
+            <h2><%= number_to_currency(@current_price) %>/case of 12</h2>
+            <p class="page-scroll"><a class="btn btn-default btn-lg" href="#order" role="button">Get Yours Now</a></p>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <div class="container text-center">
+      <h2 class="label label-success flash"><%= flash[:success] %></h3>
+      <h2 class="label label-danger flash"><%= flash[:error] %></h3>
+    </div>
+
+    <!-- Order Section -->
+    <section id="order">
+      <div class="container">
+        <form class="form-horizontal" id="order-form" method="POST" action="<%= orders_path %>">
+          <div class="row" id="form-group-order-info">
+            <div class="col-lg-8 col-lg-offset-2">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Your Order</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label for="quantity" class="col-sm-2 control-label">Cases</label>
+                    <div class="col-sm-2">
+                      <input type="number" min="0" class="form-control" id="quantity" name="quantity">
+                    </div>
+                    <div class="col-sm-8">
+                      Total price: <label for="quantity" class="control-label">$<span id="total-price">0.00</span></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="form-group-shipping-info">
+            <div class="col-lg-8 col-lg-offset-2">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Shipping Information</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label for="customer-first-name" class="col-sm-2 control-label">First Name</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="customer-first-name" name="customer[first_name]">
+                    </div>
+                    <label for="customer-last-name" class="col-sm-2 control-label">Last Name</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="customer-last-name" name="customer[last_name]">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="customer-email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" id="customer-email" name="customer[email]">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="shipping-street1" class="col-sm-2 control-label">Street 1</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="shipping-street1" name="address[street_address]">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="shipping-extended_address" class="col-sm-2 control-label">Street 2</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="shipping-extended_address" name="address[extended_address]">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="shipping-country" class="col-sm-2 control-label">Country</label>
+                    <div class="col-sm-5">
+                      <select name="address[country_code_alpha2]" id="shipping-country" class="form-control">
+                        <%= country_dropdown_options %>
+                      </select>
+                    </div>
+                    <label for="shipping-city" class="col-sm-1 control-label">City</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="shipping-city" name="address[locality]">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="billing-state" class="col-sm-2 control-label">State / Province</label>
+                    <div class="col-sm-2">
+                      <select name="address[region]" id="shipping-state" class="form-control">
+                        <%= state_dropdown_options %>
+                      </select>
+                    </div>
+                    <label for="shipping-zip" class="col-sm-4 control-label">Zip / Postal Code</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="shipping-zip" name="address[postal_code]">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="form-group-billing-info">
+            <div class="col-lg-8 col-lg-offset-2">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Billing Information</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label for="cc-name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="cc-name" data-braintree-name="cardholder_name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="billing-cc-number" class="col-sm-2 control-label">Credit Card Number</label>
+                    <div class="col-sm-10">
+                      <div class="form-control" id="billing-cc-number"></div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="billing-cc-expiration" class="col-sm-2 control-label">Expiration Date</label>
+                    <div class="col-sm-2">
+                      <div class="form-control" id="billing-cc-exipration"></div>
+                    </div>
+                    <label for="billing-cc-expiration" class="col-sm-1 control-label">CVV</label>
+                    <div class="col-sm-2">
+                      <div class="form-control" id="billing-cc-cvv"></div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">&nbsp;</label>
+                    <div class="checkbox col-sm-10">
+                      <label>
+                        <input type="checkbox" id="copy-shipping-address">
+                        Same as shipping address
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="billing-street1" class="col-sm-2 control-label">Street 1</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="billing-street1">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="billing-extended_address" class="col-sm-2 control-label">Street 2</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="billing-extended_address">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="billing-country" class="col-sm-2 control-label">Country</label>
+                    <div class="col-sm-5">
+                      <select id="billing-country" class="form-control">
+                        <%= country_dropdown_options %>
+                      </select>
+                    </div>
+                    <label for="billing-city" class="col-sm-1 control-label">City</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="billing-city">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="billing-state" class="col-sm-2 control-label">State / Province</label>
+                    <div class="col-sm-2">
+                      <select id="billing-state" class="form-control">
+                        <%= state_dropdown_options %>
+                      </select>
+                    </div>
+                    <label for="billing-zip" class="col-sm-4 control-label">Zip / Postal Code</label>
+                    <div class="col-sm-4">
+                      <div class="form-control" id="billing-cc-zip"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-primary">Place Order</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+      <div class="footer-below">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              Copyright &copy; <%= Date.today.year %> Turbo Sports Corporation
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top page-scroll visible-xs visible-sm">
+      <a class="btn btn-primary" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="/assets/classie.js"></script>
+    <script src="/assets/cbpAnimatedHeader.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/assets/freelancer.js"></script>
+
+    <!-- Braintree -->
+    <script src="https://js.braintreegateway.com/js/beta/braintree-hosted-fields-beta.15.js"></script>
+    <script src="https://js.braintreegateway.com/js/beta/braintree-hosted-fields-beta.15.min.js"></script>
+    <script>
+      var clientToken = '<%= @braintree_client_token %>';
+
+      braintree.setup(clientToken, 'custom', {
+        id: 'order-form', 
+        hostedFields: {
+          number: {
+            selector: '#billing-cc-number'
+          }, 
+          expirationDate: {
+            selector: '#billing-cc-exipration', placeholder: 'MM/YY'
+          },
+          cvv: {
+            selector: '#billing-cc-cvv'
+          },
+          postalCode: {
+            selector: '#billing-cc-zip'
+          }
+        }
+      });
+    </script>
+
+    <!-- Pusher -->
+    <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+    <script>
+      var pusher = new Pusher('<%= @pusher_key %>');
+      var feedChannel = pusher.subscribe('<%= @order_feed_channel %>');
+
+      feedChannel.bind('<%= @order_feed_event %>', function(data) {
+        $('<div class="item"><span>'+data.message+'</span></div>').appendTo('.carousel-inner');
+        $('.carousel').carousel('next');
+      });
+
+      var totalChannel = pusher.subscribe('<%= @order_total_channel %>');
+
+      totalChannel.bind('<%= @order_total_event %>', function(data) {
+        $('#shipping-stats').html(data.message);
+        $('.carousel').carousel('next');
+      });      
+    </script>
+
+    <!-- Page Interaction -->
+    <script type="text/javascript">
+      currentPrice = <%= @current_price %>;
+      $(function() {
+        // Calculate and display total price in ordering form
+        $('#quantity').keyup(function(e){
+          updateTotalPrice($(this).val());
+        });
+
+        $('#quantity').change(function(e){
+          updateTotalPrice($(this).val());
+        });
+
+        setTimeout(function() {
+          $('<div class="item"></div>').appendTo('.carousel-inner');
+        $('.carousel').carousel('next');
+        }, 5000);
+
+        // Hide flash messages after 10 seconds
+        setTimeout(function() {
+          $('.flash').slideUp();
+        }, 10000);
+      });
+
+      function updateTotalPrice(quantity) {
+        if (quantity >= 0) {
+          $('#total-price').html((quantity * currentPrice).toFixed(2));
+        } else {
+          $('#total-price').html('0.00');
+        }
+      }
+    </script>
+  </body>
+
+</html>

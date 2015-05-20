@@ -1,0 +1,14 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "freelancer";
+@import "home";
+
+div#sales-feed div.nav {
+  text-align:right;
+}
+
+div#form-group-order-info {
+  div.input-group {
+    width: 120px;
+  }
+}
